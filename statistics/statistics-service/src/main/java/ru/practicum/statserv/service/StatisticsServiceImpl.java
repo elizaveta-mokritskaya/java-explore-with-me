@@ -3,11 +3,13 @@ package ru.practicum.statserv.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.practicum.statdto.HitDto;
 import ru.practicum.statdto.HitOutcomeDto;
 import ru.practicum.statserv.model.Hit;
 import ru.practicum.statserv.repository.StatServRepository;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -15,10 +17,12 @@ import java.util.List;
 @Slf4j
 public class StatisticsServiceImpl implements StatisticsService {
     private final StatServRepository repository;
+    private final String pattern = "yyyy-MM-dd HH:mm:ss";
 
     @Override
-    public void saveNewHit(String app, String uri, String ip, LocalDateTime timestamp) {
-        repository.save(new Hit(null, app, uri, ip, timestamp));
+    public void saveNewHit(HitDto hitDto) {
+        LocalDateTime dateTime = LocalDateTime.parse(hitDto.getTimestamp(), DateTimeFormatter.ofPattern(pattern));
+        repository.save(new Hit(null, hitDto.getApp(), hitDto.getUri(), hitDto.getIp(), dateTime));
     }
 
     @Override

@@ -20,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatisticsController {
     private final StatisticsService statServ;
-    private final String pattern = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping("/hit")
     public void saveNewHit(@Valid @RequestBody HitDto hitDto) {
@@ -28,8 +27,7 @@ public class StatisticsController {
         if ((hitDto.getApp() == null) || (hitDto.getUri() == null) || (hitDto.getIp() == null) || (hitDto.getTimestamp() == null)) {
             throw new ValidationException("Входные данные не корректны");
         }
-        LocalDateTime dateTime = LocalDateTime.parse(hitDto.getTimestamp(), DateTimeFormatter.ofPattern(pattern));
-        statServ.saveNewHit(hitDto.getApp(), hitDto.getUri(), hitDto.getIp(), dateTime);
+        statServ.saveNewHit(hitDto);
     }
 
     @GetMapping("/stats")
@@ -43,8 +41,8 @@ public class StatisticsController {
         if ((start.isBlank()) || (end.isBlank())) {
             throw new ValidationException("Входные данные не корректны");
         }
-        LocalDateTime dateTimeStart = LocalDateTime.parse(start, DateTimeFormatter.ofPattern(pattern));
-        LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DateTimeFormatter.ofPattern(pattern));
+        LocalDateTime dateTimeStart = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         if (dateTimeStart.isAfter(dateTimeEnd)) {
             throw new ValidationException("Входные данные не корректны");
         }
