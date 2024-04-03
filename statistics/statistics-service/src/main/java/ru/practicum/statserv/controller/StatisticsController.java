@@ -44,7 +44,7 @@ public class StatisticsController {
         LocalDateTime dateTimeStart = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         if (dateTimeStart.isAfter(dateTimeEnd)) {
-            throw new ValidationException("Входные данные не корректны");
+            throw new ValidationException("Входные данные не корректны.");
         }
         if (!unique) {
             return statServ.getStatistic(dateTimeStart, dateTimeEnd, uris);
