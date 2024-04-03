@@ -3,6 +3,7 @@ package ru.practicum.statserv.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.statdto.HitDto;
 import ru.practicum.statdto.HitOutcomeDto;
 import ru.practicum.statserv.model.Hit;
@@ -26,6 +27,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<HitOutcomeDto> getStatistic(LocalDateTime start, LocalDateTime end, List<String> uris) {
         if (uris == null) {
             return repository.getByStartAndEnd(start, end);
