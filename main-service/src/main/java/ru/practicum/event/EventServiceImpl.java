@@ -327,6 +327,6 @@ public class EventServiceImpl implements EventService {
 
     private Long viewsEvent(LocalDateTime rangeStart, LocalDateTime rangeEnd, String uris, Boolean unique) {
         List<?> body = statisticsClient.getStat(rangeStart, rangeEnd, List.of(uris), unique);
-        return body.size() > 0 ? ((HitOutcomeDto) body.get(0)).getHits() : 0L;
+        return body.size() > 0 ? ((HitOutcomeDto) body.get(0)).getHits() : 1L;
     }
 }
