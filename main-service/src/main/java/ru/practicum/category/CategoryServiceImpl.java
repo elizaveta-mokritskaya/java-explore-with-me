@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto updateCategory(Long catId, NewCategoryDto dto) {
         if (dto.getName() == null || dto.getName().isEmpty()) {
-            throw new ValidationException("Название категории не может быть пустым");
+            throw new ValidationException("Название категории не может быть пустым.");
         }
         Category updateCategory = repository.findById(catId).orElseThrow(() -> new DataNotFoundException("Категория не найдена"));
         if (!updateCategory.getName().equals(dto.getName()) && repository.existsCategoryByName(dto.getName())) {
