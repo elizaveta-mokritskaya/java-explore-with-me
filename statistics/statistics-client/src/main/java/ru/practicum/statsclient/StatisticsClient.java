@@ -22,7 +22,7 @@ import java.util.List;
 public class StatisticsClient {
 
     private final RestTemplate rest;
-    private static String statServerUrl;
+    private String statServerUrl;
 
     @Autowired
     public StatisticsClient(RestTemplateBuilder builder) {
