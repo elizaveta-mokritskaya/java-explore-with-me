@@ -1,13 +1,11 @@
 package ru.practicum.category;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.category.dto.CategoryDto;
 import ru.practicum.category.dto.CategoryMapper;
 import ru.practicum.category.dto.NewCategoryDto;
-import ru.practicum.event.Event;
 import ru.practicum.event.EventRepository;
 import ru.practicum.exception.AlreadyExistsException;
 import ru.practicum.exception.ConflictException;
@@ -54,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
         Category updateCategory = repository.findById(catId).orElseThrow(() -> new DataNotFoundException("Категория не найдена"));
         if (!updateCategory.getName().equals(dto.getName()) && repository.existsCategoryByName(dto.getName())) {
-            throw new AlreadyExistsException("Категория с таким именем уже существует" );
+            throw new AlreadyExistsException("Категория с таким именем уже существует");
         }
         updateCategory.setName(dto.getName());
         return CategoryMapper.toCategoryDto(repository.save(updateCategory));

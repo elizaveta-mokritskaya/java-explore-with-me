@@ -60,5 +60,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         }
     }
 
-    private String decode(String string) { return URLDecoder.decode(string); }
+    private String decode(String string) {
+        return URLDecoder.decode(string);
+    }
 }

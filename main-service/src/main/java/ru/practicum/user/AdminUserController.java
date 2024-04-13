@@ -20,8 +20,8 @@ public class AdminUserController {
 
     @GetMapping
     public List<UserDto> getUsersByIds(@RequestParam(defaultValue = "") List<Long> ids,
-                                      @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") int from,
-                                      @Positive @RequestParam(name = "size", defaultValue = "10") int size) {
+                                       @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") int from,
+                                       @Positive @RequestParam(name = "size", defaultValue = "10") int size) {
         return service.getUsersByIds(ids, from / size, size);
     }
 

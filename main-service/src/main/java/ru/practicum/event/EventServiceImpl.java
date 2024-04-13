@@ -233,6 +233,7 @@ public class EventServiceImpl implements EventService {
             }
         }
     }
+
     private void setConfirmedRequests(List<Event> events) {
         List<Long> eventIds = events.stream().map(Event::getId).collect(Collectors.toList());
         List<ConfirmedRequest> confirmedRequests = requestRepository.findConfirmedRequest(eventIds);

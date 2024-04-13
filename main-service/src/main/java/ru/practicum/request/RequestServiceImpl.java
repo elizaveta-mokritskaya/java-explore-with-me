@@ -6,7 +6,6 @@ import ru.practicum.event.Event;
 import ru.practicum.event.EventRepository;
 import ru.practicum.event.EventState;
 import ru.practicum.exception.AlreadyExistsException;
-import ru.practicum.exception.ConflictException;
 import ru.practicum.exception.DataNotFoundException;
 import ru.practicum.request.dto.ParticipationRequestDto;
 import ru.practicum.request.dto.RequestMapper;

@@ -10,8 +10,6 @@ import ru.practicum.exception.ConflictException;
 import ru.practicum.exception.DataNotFoundException;
 import ru.practicum.exception.ValidationException;
 
-import javax.persistence.EntityNotFoundException;
-
 @Slf4j
 @RestControllerAdvice
 public class ErrorHandler {

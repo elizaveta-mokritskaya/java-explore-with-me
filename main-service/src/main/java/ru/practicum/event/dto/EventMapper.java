@@ -46,13 +46,13 @@ public class EventMapper {
     }
 
     public static Event toEventFromNewDto(NewEventDto newEventDto, User user, Category category) {
-        if(newEventDto.getPaid() == null){
+        if (newEventDto.getPaid() == null) {
             newEventDto.setPaid(false);
         }
-        if(newEventDto.getParticipantLimit() == null){
+        if (newEventDto.getParticipantLimit() == null) {
             newEventDto.setParticipantLimit(0);
         }
-        if(newEventDto.getRequestModeration() == null){
+        if (newEventDto.getRequestModeration() == null) {
             newEventDto.setRequestModeration(true);
         }
         return Event.builder()
