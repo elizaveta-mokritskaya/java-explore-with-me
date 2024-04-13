@@ -6,7 +6,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -22,19 +21,18 @@ import java.util.List;
 public class StatisticsClient {
 
     private final RestTemplate rest;
-    private String statServerUrl;
+    private static final String STATS_SERVER_URL = System.getenv().get("STATS_SERVER_URL");
 
     @Autowired
     public StatisticsClient(RestTemplateBuilder builder) {
-        statServerUrl = "http://localhost:9090";
         rest = builder
-                .uriTemplateHandler(new DefaultUriBuilderFactory(statServerUrl))
-                .requestFactory(HttpComponentsClientHttpRequestFactory::new)
+                .uriTemplateHandler(new DefaultUriBuilderFactory(STATS_SERVER_URL))
                 .build();
     }
 
+
     public void addHit(HitDto hitDto) {
-        rest.postForLocation(statServerUrl + "/hit", hitDto);
+        rest.postForLocation(STATS_SERVER_URL + "/hit", hitDto);
     }
 
     public List<HitOutcomeDto> getStat(LocalDateTime start,
@@ -51,7 +49,7 @@ public class StatisticsClient {
             urisToSend.append(uri).append(",");
         }
         ResponseEntity<List<HitOutcomeDto>> response = rest.exchange(
-                statServerUrl + "/stats?start={start}&end={end}&uris={uris}&unique={unique}",
+                STATS_SERVER_URL + "/stats?start={start}&end={end}&uris={uris}&unique={unique}",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
