@@ -318,7 +318,7 @@ public class EventServiceImpl implements EventService {
 
     private void validateTime(LocalDateTime start) {
         if (start.isBefore(LocalDateTime.now())) {
-            throw new ValidationException("Дата начала изменяемого события должна быть не ранее чем за час от даты публикации");
+            throw new ValidationException("Дата начала изменяемого события должна быть не ранее чем за час от даты публикации.");
         }
     }
 
