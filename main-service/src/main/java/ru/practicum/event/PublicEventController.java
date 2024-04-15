@@ -36,12 +36,13 @@ public class PublicEventController {
                                                 @Positive @RequestParam(defaultValue = "10") Integer size,
                                                 HttpServletRequest request) {
 
+
         List<EventShortDto> events = service.getEventByFilter(text, categories, paid,
                 rangeStart,
                 rangeEnd,
                 onlyAvailable, sort,
                 from / size, size);
-        log.debug("!!!!!!!!!!!получаем ивенты по фильтру!!!!!!!!!!!!!!!!!!!!!", events);
+        log.debug("!!!!!!!!!!!получаем ивенты!!!!!!!!!!!!!!!!!!!!!", events);
         HitDto hitDto = new HitDto("ewm-service", request.getRequestURI(), request.getRemoteAddr(),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         client.addHit(hitDto);
