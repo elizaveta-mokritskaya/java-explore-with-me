@@ -9,6 +9,7 @@ import ru.practicum.statdto.HitOutcomeDto;
 import ru.practicum.statserv.model.Hit;
 import ru.practicum.statserv.repository.StatServRepository;
 
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,29 +20,47 @@ import java.util.List;
 public class StatisticsServiceImpl implements StatisticsService {
     private final StatServRepository repository;
     private final String pattern = "yyyy-MM-dd HH:mm:ss";
+    private static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public void saveNewHit(HitDto hitDto) {
-        LocalDateTime dateTime = LocalDateTime.parse(hitDto.getTimestamp(), DateTimeFormatter.ofPattern(pattern));
+        log.debug("форматируем дату");
+        LocalDateTime dateTime = LocalDateTime.parse(hitDto.getTimestamp(), FORMATTER);
+        log.debug("попытка сохранить Hit");
         repository.save(new Hit(null, hitDto.getApp(), hitDto.getUri(), hitDto.getIp(), dateTime));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<HitOutcomeDto> getStatistic(LocalDateTime start, LocalDateTime end, List<String> uris) {
+    public List<HitOutcomeDto> getStatistic(String startDate, String endDate, List<String> uris) {
+        log.debug("форматируем дату start");
+        LocalDateTime start = LocalDateTime.parse(decode(startDate), FORMATTER);
+        log.debug("форматируем дату end");
+        LocalDateTime end = LocalDateTime.parse(decode(endDate), FORMATTER);
         if (uris == null) {
+            log.info("repository.getByStartAndEnd(start, end);");
             return repository.getByStartAndEnd(start, end);
         } else {
+            log.info("repository.getByStartAndEndAndUri(start, end, uris);");
             return repository.getByStartAndEndAndUri(start, end, uris);
         }
     }
 
     @Override
-    public List<HitOutcomeDto> getStatisticWithIp(LocalDateTime start, LocalDateTime end, List<String> uris) {
+    @Transactional(readOnly = true)
+    public List<HitOutcomeDto> getStatisticWithIp(String startDate, String endDate, List<String> uris) {
+        log.info("форматируем дату start");
+        LocalDateTime start = LocalDateTime.parse(decode(startDate), FORMATTER);
+        log.info("форматируем дату end");
+        LocalDateTime end = LocalDateTime.parse(decode(endDate), FORMATTER);
         if (uris == null) {
             return repository.getByStartAndEndAndIp(start, end);
         } else {
             return repository.getByStartAndEndAndUriAndIp(start, end, uris);
         }
+    }
+
+    private String decode(String string) {
+        return URLDecoder.decode(string);
     }
 }

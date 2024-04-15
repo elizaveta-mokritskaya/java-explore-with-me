@@ -2,7 +2,7 @@ package ru.practicum.statserv.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.statdto.HitDto;
 import ru.practicum.statdto.HitOutcomeDto;
@@ -22,6 +22,7 @@ public class StatisticsController {
     private final StatisticsService statServ;
 
     @PostMapping("/hit")
+    @ResponseStatus(HttpStatus.CREATED)
     public void saveNewHit(@Valid @RequestBody HitDto hitDto) {
         log.info("Получен запрос на сохранение нового просмотра '{}'", hitDto);
         if ((hitDto.getApp() == null) || (hitDto.getUri() == null) || (hitDto.getIp() == null) || (hitDto.getTimestamp() == null)) {
@@ -32,12 +33,13 @@ public class StatisticsController {
 
     @GetMapping("/stats")
     public List<HitOutcomeDto> getStat(
-            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam String start,
-            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") @RequestParam String end,
+            @RequestParam String start,
+            @RequestParam String end,
             @RequestParam(name = "uris", required = false) ArrayList<String> uris,
             @RequestParam(name = "unique", defaultValue = "false", required = false) boolean unique
     ) {
         log.info("Получен запрос на получение статистики");
+        log.info("!!!!!!!!!!!!!!!!!!{}", start);
         if ((start.isBlank()) || (end.isBlank())) {
             throw new ValidationException("Входные данные не корректны");
         }
@@ -46,10 +48,10 @@ public class StatisticsController {
         if (dateTimeStart.isAfter(dateTimeEnd)) {
             throw new ValidationException("Входные данные не корректны.");
         }
-        if (!unique) {
-            return statServ.getStatistic(dateTimeStart, dateTimeEnd, uris);
+        if (unique) {
+            return statServ.getStatistic(start, end, uris);
         } else {
-            return statServ.getStatisticWithIp(dateTimeStart, dateTimeEnd, uris);
+            return statServ.getStatisticWithIp(start, end, uris);
         }
     }
 }
