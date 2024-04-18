@@ -395,7 +395,7 @@
           }
         },
         "url": {
-          "raw": "{{baseUrl}}/users/:userId/comments?eventId=1",
+          "raw": "{{baseUrl}}/users/:userId/comments?eventId=2",
           "host": [
             "{{baseUrl}}"
           ],
@@ -407,14 +407,14 @@
           "query": [
             {
               "key": "eventId",
-              "value": "5",
+              "value": "2",
               "description": "(Required) id события"
             }
           ],
           "variable": [
             {
               "key": "userId",
-              "value": "12",
+              "value": "3",
               "description": "(Required) id текущего пользователя"
             }
           ]
@@ -464,7 +464,7 @@
           }
         },
         "url": {
-          "raw": "{{baseUrl}}/users/:userId/comments?eventId=1",
+          "raw": "{{baseUrl}}/users/:userId/comments?eventId=2",
           "host": [
             "{{baseUrl}}"
           ],
@@ -476,14 +476,14 @@
           "query": [
             {
               "key": "eventId",
-              "value": "1",
+              "value": "2",
               "description": "(Required) id события"
             }
           ],
           "variable": [
             {
               "key": "userId",
-              "value": "1",
+              "value": "3",
               "description": "(Required) id текущего пользователя"
             }
           ]
@@ -536,7 +536,7 @@
           "variable": [
             {
               "key": "id",
-              "value": "1"
+              "value": "2"
             }
           ]
         }
@@ -599,7 +599,7 @@
           }
         },
         "url": {
-          "raw": "{{baseUrl}}/users/:userId/comments?eventId=9",
+          "raw": "{{baseUrl}}/users/:userId/comments?eventId=6",
           "host": [
             "{{baseUrl}}"
           ],
@@ -611,14 +611,14 @@
           "query": [
             {
               "key": "eventId",
-              "value": "9",
+              "value": "6",
               "description": "(Required) id события"
             }
           ],
           "variable": [
             {
               "key": "userId",
-              "value": "17",
+              "value": "15",
               "description": "(Required) id текущего пользователя"
             }
           ]
@@ -665,7 +665,7 @@
           }
         },
         "url": {
-          "raw": "{{baseUrl}}/users/:userId/comments?eventId=5",
+          "raw": "{{baseUrl}}/users/:userId/comments?eventId=6",
           "host": [
             "{{baseUrl}}"
           ],
@@ -677,14 +677,14 @@
           "query": [
             {
               "key": "eventId",
-              "value": "5",
+              "value": "6",
               "description": "(Required) id события"
             }
           ],
           "variable": [
             {
               "key": "userId",
-              "value": "14",
+              "value": "1",
               "description": "(Required) id текущего пользователя"
             }
           ]
@@ -747,7 +747,7 @@
           "variable": [
             {
               "key": "userId",
-              "value": "15"
+              "value": "1"
             },
             {
               "key": "commentId",
@@ -828,7 +828,7 @@
           "variable": [
             {
               "key": "userId",
-              "value": "1"
+              "value": "3"
             },
             {
               "key": "commentId",
@@ -938,7 +938,7 @@
           "variable": [
             {
               "key": "userId",
-              "value": "1",
+              "value": "3",
               "description": "(Required) id текущего пользователя"
             },
             {
