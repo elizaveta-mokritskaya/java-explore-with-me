@@ -407,14 +407,14 @@
           "query": [
             {
               "key": "eventId",
-              "value": "1",
+              "value": "5",
               "description": "(Required) id события"
             }
           ],
           "variable": [
             {
               "key": "userId",
-              "value": "1",
+              "value": "12",
               "description": "(Required) id текущего пользователя"
             }
           ]
