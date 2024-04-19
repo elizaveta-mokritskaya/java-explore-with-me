@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.exception.AlreadyExistsException;
-import ru.practicum.exception.ConflictException;
-import ru.practicum.exception.DataNotFoundException;
-import ru.practicum.exception.ValidationException;
+import ru.practicum.exception.*;
 
 @Slf4j
 @RestControllerAdvice
@@ -37,6 +34,15 @@ public class ErrorHandler {
         log.info("Ошибка валидации");
         return new ErrorResponse(
                 "Ошибка валидации", e.getMessage()
+        );
+    }
+
+    @ExceptionHandler(AccessException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleAccessException(final AccessException e) {
+        log.info("Ошибка доступа");
+        return new ErrorResponse(
+                "Ошибка доступа", e.getMessage()
         );
     }
 }
